@@ -32,8 +32,18 @@ class ComplicationController: NSObject, CLKComplicationDataSource {
     // MARK: - Timeline Population
     
     func getCurrentTimelineEntryForComplication(complication: CLKComplication, withHandler handler: ((CLKComplicationTimelineEntry?) -> Void)) {
-        // Call the handler with the current timeline entry
-        handler(nil)
+        if complication.family == .CircularSmall {
+            
+            let template = CLKComplicationTemplateCircularSmallRingText()
+            template.textProvider = CLKSimpleTextProvider(text: "\(10)")
+            template.fillFraction = Float(70) / 10.0
+            template.ringStyle = CLKComplicationRingStyle.Closed
+            
+            let timelineEntry = CLKComplicationTimelineEntry(date: NSDate(), complicationTemplate: template)
+            handler(timelineEntry)
+        } else {
+            handler(nil)
+        }
     }
     
     func getTimelineEntriesForComplication(complication: CLKComplication, beforeDate date: NSDate, limit: Int, withHandler handler: (([CLKComplicationTimelineEntry]?) -> Void)) {
@@ -50,14 +60,40 @@ class ComplicationController: NSObject, CLKComplicationDataSource {
     
     func getNextRequestedUpdateDateWithHandler(handler: (NSDate?) -> Void) {
         // Call the handler with the date when you would next like to be given the opportunity to update your complication content
-        handler(nil);
+        handler(NSDate(timeIntervalSinceNow: 60))
     }
     
     // MARK: - Placeholder Templates
     
     func getPlaceholderTemplateForComplication(complication: CLKComplication, withHandler handler: (CLKComplicationTemplate?) -> Void) {
-        // This method will be called once per supported complication, and the results will be cached
-        handler(nil)
+        var returnTemplate: CLKComplicationTemplate? = nil
+        switch complication.family {
+        case .ModularSmall:
+            let template = CLKComplicationTemplateModularSmallSimpleText()
+            template.textProvider = CLKSimpleTextProvider(text: "Template", shortText: "temp", accessibilityLabel: "Template Text")
+            returnTemplate = template
+        case .ModularLarge:
+            let template = CLKComplicationTemplateModularLargeStandardBody()
+            template.headerTextProvider = CLKSimpleTextProvider(text: "Header", shortText: "Head", accessibilityLabel: "Template Text")
+            template.body1TextProvider = CLKSimpleTextProvider(text: "Body1", shortText: "B!", accessibilityLabel: "Template Text")
+            returnTemplate = template
+        case .UtilitarianSmall:
+            let template = CLKComplicationTemplateUtilitarianSmallFlat()
+            template.textProvider = CLKSimpleTextProvider(text: "Template", shortText: "TEMP", accessibilityLabel: "Template Text")
+            returnTemplate = template
+        case .UtilitarianLarge:
+            let template = CLKComplicationTemplateUtilitarianLargeFlat()
+            template.textProvider = CLKSimpleTextProvider(text: "Template", shortText: "TEMP", accessibilityLabel: "Template Text")
+            returnTemplate = template
+        case .CircularSmall:
+            let template = CLKComplicationTemplateCircularSmallRingText()
+            template.textProvider = CLKSimpleTextProvider(text: "--")
+            template.fillFraction = 0.7
+            template.ringStyle = CLKComplicationRingStyle.Closed
+            returnTemplate = template
+        }
+        
+        handler(returnTemplate)
     }
     
 }
