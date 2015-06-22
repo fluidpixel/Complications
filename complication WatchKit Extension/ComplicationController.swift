@@ -44,27 +44,28 @@ class ComplicationController: NSObject, CLKComplicationDataSource {
             let template = CLKComplicationTemplateModularLargeStandardBody()
             template.headerTextProvider = CLKSimpleTextProvider(text: "Header", shortText: "Head", accessibilityLabel: "Template Text")
             template.body1TextProvider = CLKSimpleTextProvider(text: "Body1", shortText: "B!", accessibilityLabel: "Template Text")
-            if let image = UIImage(named: "Utilitarian") {
+            template.body2TextProvider = CLKSimpleTextProvider(text: "Body2", shortText: "B2", accessibilityLabel: "Template Text")
+            if let image = UIImage(named: "Complication/Modular") {
                 template.headerImageProvider = CLKImageProvider(backgroundImage: image, backgroundColor: nil)
             }
             returnTemplate = template
         case .UtilitarianSmall:
             let template = CLKComplicationTemplateUtilitarianSmallFlat()
             template.textProvider = CLKSimpleTextProvider(text: "Template", shortText: "TEMP", accessibilityLabel: "Template Text")
-            if let image = UIImage(named: "Utilitarian") {
+            if let image = UIImage(named: "Complication/Utilitarian") {
                 template.imageProvider = CLKImageProvider(backgroundImage: image, backgroundColor: nil)
             }
             returnTemplate = template
         case .UtilitarianLarge:
             let template = CLKComplicationTemplateUtilitarianLargeFlat()
             template.textProvider = CLKSimpleTextProvider(text: "Template", shortText: "TEMP", accessibilityLabel: "Template Text")
-            if let image = UIImage(named: "Utilitarian") {
+            if let image = UIImage(named: "Complication/Utilitarian") {
                 template.imageProvider = CLKImageProvider(backgroundImage: image, backgroundColor: nil)
             }
             returnTemplate = template
         case .CircularSmall:
             let template = CLKComplicationTemplateCircularSmallRingText()
-            template.textProvider = CLKSimpleTextProvider(text: "--")
+            template.textProvider = CLKSimpleTextProvider(text: "20")
             template.fillFraction = 0.7
             template.ringStyle = CLKComplicationRingStyle.Closed
             returnTemplate = template
@@ -98,28 +99,35 @@ class ComplicationController: NSObject, CLKComplicationDataSource {
         switch complication.family {
         case .ModularSmall:
             let template = CLKComplicationTemplateModularSmallSimpleText()
-            template.textProvider = CLKSimpleTextProvider(text: "Template", shortText: "temp", accessibilityLabel: "Template Text")
+            template.textProvider = CLKSimpleTextProvider(text: "ModSmall", shortText: "temp", accessibilityLabel: "Template Text")
             returnTemplate = template
         case .ModularLarge:
             let template = CLKComplicationTemplateModularLargeStandardBody()
             template.headerTextProvider = CLKSimpleTextProvider(text: "Header", shortText: "Head", accessibilityLabel: "Template Text")
-            template.body1TextProvider = CLKSimpleTextProvider(text: "Body1", shortText: "B!", accessibilityLabel: "Template Text")
+            template.body1TextProvider = CLKSimpleTextProvider(text: "Body1", shortText: "B1", accessibilityLabel: "Template Text")
+            template.body2TextProvider = CLKSimpleTextProvider(text: "Body2", shortText: "B2", accessibilityLabel: "Template Text")
+            if let image = UIImage(named: "Complication/Modular") {
+                template.headerImageProvider = CLKImageProvider(backgroundImage: image, backgroundColor: nil)
+            }
             returnTemplate = template
         case .UtilitarianSmall:
             let template = CLKComplicationTemplateUtilitarianSmallFlat()
-            template.textProvider = CLKSimpleTextProvider(text: "Template", shortText: "TEMP", accessibilityLabel: "Template Text")
+            template.textProvider = CLKSimpleTextProvider(text: "UtilSmall", shortText: "UtilSmall", accessibilityLabel: "Template Text")
+            if let image = UIImage(named: "Complication/Utilitarian") {
+                template.imageProvider = CLKImageProvider(backgroundImage: image, backgroundColor: nil)
+            }
             returnTemplate = template
         case .UtilitarianLarge:
             let template = CLKComplicationTemplateUtilitarianLargeFlat()
-            template.textProvider = CLKSimpleTextProvider(text: "Template", shortText: "TEMP", accessibilityLabel: "Template Text")
-            if let image = UIImage(named: "Utilitarian") {
+            template.textProvider = CLKSimpleTextProvider(text: "UtilLargeFlat", shortText: "TEMP", accessibilityLabel: "Template Text")
+            if let image = UIImage(named: "Complication/Utilitarian") {
                 template.imageProvider = CLKImageProvider(backgroundImage: image, backgroundColor: nil)
             }
             returnTemplate = template
         case .CircularSmall:
             let template = CLKComplicationTemplateCircularSmallRingText()
             template.textProvider = CLKSimpleTextProvider(text: "--")
-            template.fillFraction = 0.7
+            template.fillFraction = 0.4
             template.ringStyle = CLKComplicationRingStyle.Closed
             returnTemplate = template
         }
